@@ -1,14 +1,7 @@
-FROM golang:1.17
+FROM golang:1.26
 WORKDIR /src
 
-# Let vendor in our dependencies.. copy over the minimum number of files needed to
-# do the vendoring.
-COPY go.mod /src/go.mod
-COPY go.sum /src/go.sum
-COPY apicurito.go /src/apicurito.go
-RUN go mod vendor
-RUN go get github.com/go-bindata/go-bindata/go-bindata@v1.0.0
-
+# Copy over the sources (including the dist/ folder with the built
+# Angular application, which gets embedded into the binary).
 COPY . /src
-RUN go-bindata -o bindata_assetfs.go -prefix dist dist/...
-RUN CGO_ENABLED=0 go build -mod=vendor -o /main *.go
+RUN CGO_ENABLED=0 go build -o /main .
