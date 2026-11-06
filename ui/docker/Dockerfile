@@ -1,4 +1,6 @@
-FROM alpine
+# Pinned by digest for reproducible builds; the tag documents the version.
+# alpine:3.24.3 (multi-arch OCI index digest, verified 2026-11-06)
+FROM alpine:3.24.3@sha256:be2656061b536c1883c4034790e21d0a09c5aaaf51968b89368a3c0371ea2c9a
 
 # This refers to the files copied by assembly configuration in pom.xml
 # Change this to e.g. "dist" if running the dockerfile from top-level e.g.
